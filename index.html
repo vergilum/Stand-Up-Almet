@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стендап Альметьевск | Твой вечер юмора</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #000000;
+            --accent-blue: #0071e3;
+            --accent-warm: #f5f5f7;
+            --card-bg: rgba(28, 28, 30, 0.7);
+            --text-main: #f5f5f7;
+            --text-secondary: #86868b;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Главный экран (Hero) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('Main.jpg') no-repeat center center/cover;
+            padding: 0 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(1.05); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #fff 0%, #86868b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0077ed;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 113, 227, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        /* Секция "О нас" */
+        .section {
+            padding: 100px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .about {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Шоу (Меню) */
+        .shows-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .show-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .show-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+        }
+
+        .show-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .show-content {
+            padding: 30px;
+        }
+
+        .show-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .show-content p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        /* Рулетка комиков */
+        .comedians-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 20px 0;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .comedians-container::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .comedian-card {
+            min-width: 300px;
+            scroll-snap-align: center;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .comedian-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+
+        .comedian-card:hover .comedian-img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .comedian-name {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+
+        /* Контакты */
+        .contacts {
+            background: #1c1c1e;
+            border-radius: 30px;
+            padding: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 3rem; }
+            .contacts { padding: 30px; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">STANDUP ALMET</a>
+            <div class="nav-links">
+                <a href="#about">О нас</a>
+                <a href="#shows">Шоу</a>
+                <a href="#comedians">Комики</a>
+                <a href="#contacts">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Смейся громче.</h1>
+        <p>Первый профессиональный стендап-клуб в Альметьевске. Место, где рождаются лучшие шутки города.</p>
+        <a href="#shows" class="btn btn-primary">Купить билеты</a>
+    </header>
+
+    <section id="about" class="section about">
+        <h2 class="section-title">Наша история</h2>
+        <p>«Стендап Альметьевск» начался в 2018 году как небольшое сообщество энтузиастов в уютных кафе города. Сегодня — это полноценное арт-пространство с лучшим звуком, атмосферой и комиками со всего Татарстана и России. Мы верим, что юмор — это лучший способ провести вечер.</p>
+    </section>
+
+    <section id="shows" class="section">
+        <h2 class="section-title" style="text-align: center;">Ближайшие шоу</h2>
+        <div class="shows-grid">
+            <!-- Открытый микрофон -->
+            <div class="show-card">
+                <img src="https://images.unsplash.com/photo-1527224857830-43a7acc85260?auto=format&fit=crop&q=80&w=800" alt="Открытый микрофон" class="show-img">
+                <div class="show-content">
+                    <h3>Открытый микрофон</h3>
+                    <p>Опытные комики проверяют новые шутки, а новички делают первые шаги. Непредсказуемый вечер!</p>
+                    <a href="#" class="btn btn-primary" style="font-size: 0.8rem;">Билеты от 200₽</a>
+                </div>
+            </div>
+            <!-- Стендап Лучшее -->
+            <div class="show-card">
+                <img src="https://images.unsplash.com/photo-1514525253361-b83f859b73c0?auto=format&fit=crop&q=80&w=800" alt="Стендап Лучшее" class="show-img">
+                <div class="show-content">
+                    <h3>Стендап Лучшее</h3>
+                    <p>Проверенный материал от резидентов нашего клуба. Полтора часа чистого смеха без фильтров.</p>
+                    <a href="#" class="btn btn-primary" style="font-size: 0.8rem;">Билеты от 500₽</a>
+                </div>
+            </div>
+            <!-- Большой Стендап -->
+            <div class="show-card">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800" alt="Большой Стендап" class="show-img">
+                <div class="show-content">
+                    <h3>Большой Стендап</h3>
+                    <p>Хедлайнеры из ТВ и YouTube проектов. Масштабное шоу с приглашенными звездами.</p>
+                    <a href="#" class="btn btn-primary" style="font-size: 0.8rem;">Билеты от 1000₽</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comedians" class="section">
+        <h2 class="section-title" style="text-align: center;">Наши комики</h2>
+        <div class="comedians-container">
+            <!-- Комик 1 -->
+            <div class="comedian-card">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400" alt="Комик" class="comedian-img">
+                <div class="comedian-name">Артур Сабиров</div>
+                <p style="color: var(--text-secondary); font-size: 0.8rem;">Мастер самоиронии и резидент клуба с первого дня.</p>
+            </div>
+            <!-- Комик 2 -->
+            <div class="comedian-card">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" alt="Комик" class="comedian-img">
+                <div class="comedian-name">Ильяс Галимов</div>
+                <p style="color: var(--text-secondary); font-size: 0.8rem;">Победитель многих фестивалей Поволжья.</p>
+            </div>
+            <!-- Комик 3 -->
+            <div class="comedian-card">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400" alt="Комик" class="comedian-img">
+                <div class="comedian-name">Марат Хайруллин</div>
+                <p style="color: var(--text-secondary); font-size: 0.8rem;">Тонкий юмор об отношениях и жизни в Альметьевске.</p>
+            </div>
+            <!-- Комик 4 -->
+            <div class="comedian-card">
+                <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&q=80&w=400" alt="Комик" class="comedian-img">
+                <div class="comedian-name">Диана Н.</div>
+                <p style="color: var(--text-secondary); font-size: 0.8rem;">Женский взгляд на суровую реальность нефтяной столицы.</p>
+            </div>
+            <!-- Комик 5 -->
+            <div class="comedian-card">
+                <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=400" alt="Комик" class="comedian-img">
+                <div class="comedian-name">Тимур Ахметов</div>
+                <p style="color: var(--text-secondary); font-size: 0.8rem;">Абсурдный юмор и невероятная подача.</p>
+            </div>
+            <!-- Комик 6 -->
+            <div class="comedian-card">
+                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400" alt="Комик" class="comedian-img">
+                <div class="comedian-name">Руслан В.</div>
+                <p style="color: var(--text-secondary); font-size: 0.8rem;">Молодая кровь нашего стендап-движения.</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 20px; color: var(--accent-blue);">Листайте вправо →</p>
+    </section>
+
+    <section id="contacts" class="section">
+        <div class="contacts">
+            <div class="contact-info">
+                <h3>Ждем вас на шоу</h3>
+                <div class="contact-item">📍 ул. Ленина, 100, Альметьевск</div>
+                <div class="contact-item">📞 +7 (999) 000-00-00</div>
+                <div class="contact-item">🕒 Пн-Вс: 18:00 — 00:00</div>
+            </div>
+            <div style="flex-grow: 1; min-width: 300px; height: 250px; background: #2c2c2e; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">
+                <!-- Здесь может быть карта (Google/Yandex) -->
+                [ Карта проезда ]
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; color: var(--text-secondary); border-top: 1px solid #1c1c1e;">
+        &copy; 2023 Стендап Альметьевск. Сделано с любовью и юмором.
+    </footer>
+
+    <script>
+        // Анимация появления элементов при скролле
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.show-card, .section-title, .about p').forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(30px)";
+            el.style.transition = "var(--transition)";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
