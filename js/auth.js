@@ -212,6 +212,9 @@
       const userGreeting = document.getElementById('user-greeting');
 
       if (isAuthenticated && this.currentUser) {
+        const fullName = this.currentUser.user_metadata?.full_name?.trim();
+        const greetingName = fullName || this.currentUser.email;
+
         if (loginBtn) {
           loginBtn.style.display = 'none';
         }
@@ -222,7 +225,7 @@
 
         if (userGreeting) {
           userGreeting.style.display = 'inline-flex';
-          userGreeting.textContent = `Привет, ${this.currentUser.email}`;
+          userGreeting.textContent = `Привет, ${greetingName}`;
         }
       } else {
         if (loginBtn) {
@@ -264,6 +267,19 @@
 
     getCurrentUser() {
       return this.currentUser;
+    }
+
+    syncCurrentUserMetadata(updates) {
+      if (!this.currentUser) {
+        return;
+      }
+
+      this.currentUser.user_metadata = {
+        ...(this.currentUser.user_metadata || {}),
+        ...updates
+      };
+
+      this.updateAuthUI(true);
     }
 
     isAuthenticated() {

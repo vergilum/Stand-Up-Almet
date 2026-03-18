@@ -162,6 +162,10 @@
 
         try {
           await this.updateProfile(fullName, phone);
+          window.authManager.syncCurrentUserMetadata({
+            full_name: fullName,
+            phone
+          });
           this.showProfileMessage('Профиль сохранен.', 'success');
         } catch (error) {
           this.showProfileMessage(error.message || 'Не удалось сохранить профиль.', 'error');
