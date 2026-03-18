@@ -1,0 +1,61 @@
+<!-- Profile Modal Component -->
+<div id="profile-modal" class="profile-modal">
+  <div class="profile-modal-content">
+    <span class="profile-modal-close" id="profile-modal-close">&times;</span>
+    <h2>Личный кабинет</h2>
+    
+    <!-- Профиль пользователя -->
+    <div id="profile-container">
+      <!-- Сюда будет вставляться профиль -->
+    </div>
+
+    <!-- Форма бронирования -->
+    <div id="booking-form-container">
+      <!-- Сюда будет вставляться форма бронирования -->
+    </div>
+
+    <!-- История бронирований -->
+    <div id="bookings-container">
+      <!-- Сюда будет вставляться история бронирований -->
+    </div>
+  </div>
+</div>
+
+<script>
+// Обработчик открытия профиля
+document.addEventListener('DOMContentLoaded', () => {
+  const profileBtn = document.getElementById('profile-btn')
+  
+  if (profileBtn) {
+    profileBtn.addEventListener('click', () => {
+      const modal = document.getElementById('profile-modal')
+      modal.style.display = 'flex'
+      
+      // Загружаем данные профиля
+      profileManager.loadAndRenderAll()
+    })
+  }
+
+  // Закрытие модального окна
+  document.getElementById('profile-modal-close').addEventListener('click', () => {
+    const modal = document.getElementById('profile-modal')
+    modal.style.display = 'none'
+  })
+
+  // Закрытие модального окна при клике вне контента
+  document.getElementById('profile-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'profile-modal') {
+      const modal = document.getElementById('profile-modal')
+      modal.style.display = 'none'
+    }
+  })
+
+  // Закрытие модального окна по Esc
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('profile-modal')
+      modal.style.display = 'none'
+    }
+  })
+})
+</script>
